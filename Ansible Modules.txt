@@ -1,0 +1,14 @@
+Modules (also referred to as “task plugins” or “library plugins”) are discrete units of code that can be used from the command line or in a playbook task. Ansible executes each module, usually on the remote target node, and collects return value.
+
+to execute the midules using command line:
+
+$ansible all -m ping
+
+$ansible webservers -m command -a "ls"
+
+$ansible -i inventory all -m command -a "iptables -F" --become --ask-become-pass
+
+$ansible all -m setup
+
+$ansible-doc setup
+
