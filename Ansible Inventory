@@ -1,0 +1,15 @@
+Check the connectivity is required
+
+ssh <target IP address>
+
+we can create an inventory file(if we dont wish to the default folder)
+$ mkdir test_inventory
+$cd test _inventory
+$cat > inventory.txt
+target1 ansible_host=192.168.1.114 ansible_ssh_pass=osboxes.org
+
+
+Now we can try to ping from ansible 
+
+$ansible target1 -m ping -i inventory.txt
+
