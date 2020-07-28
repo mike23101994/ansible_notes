@@ -1,0 +1,12 @@
+Create a playbook file 
+
+1)test the target connectivity
+
+---
+   name: Test Connectivity to traget servers
+   hosts: all
+   tasks:
+     - name: Ping Test
+       ping:
+
+$ansible-playbook <name of the playbook.yml> -i inventory.txt
