@@ -1,0 +1,56 @@
+After installing Ansible in the Control server we need to create keygen and copy the same in to host servers
+for ssh connection
+
+1)Command :
+
+$ssh-keygen
+
+2)Create the host inventory file
+
+$ sudo nano /etc/ansible/hosts
+
+edit the default host file and write the host names
+
+3) Copy the ssh key to the node that we have mentioned in the Host Inventory file
+
+$ssh-copy-id -i knode
+
+4) Check if the node is responding properly
+
+$ansible -m ping test-server
+
+5) Write the playbook
+
+$ sudo nano testdemo.yml
+
+[text editor opens up]
+
+
+---
+- host : test-servers
+  become: true
+  vars:
+    ansible_become_pass: password
+  task :
+  - name : install nginx
+    package : pkg=nginx state=install
+
+    notify:
+    - start nginx
+
+  handlers :
+  - name = start nginx
+    service : name=nginx state=started
+
+6) Now we need to run te playbook file
+
+$ansible-playbook testdemo.yml
+
+7) To verify whether the package has been installed we need to use the command:
+
+$ps waux | grep ngix  // we need to login to the node server beforehand
+
+
+
+
+	

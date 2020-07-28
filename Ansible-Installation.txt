@@ -1,0 +1,26 @@
+Commands to install ANsible onto the Control Machine
+
+1)sudo apt-get update
+2)sudo apt-get install software-properties-common  //to install the common property file
+3)sudo apt-add-repository ppa:ansible/ansible  //it will install the ansible repo
+4)sudo apt-get update
+5)sudo apt-get install ansible
+
+Inventory: it is a group of host that are alike in all possible ways
+Deafault Path is  :-  /etc/ansible/hosts
+
+hosts file:
+
+[webservers]
+
+server 1
+server 2
+
+[application]
+
+server 1 
+server 2
+
+
+
+
