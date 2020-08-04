@@ -1,0 +1,53 @@
+Using the Ansilbel Variables:
+
+---
+  name: Add DNS to resolv.conf
+  host: localhost
+  vars: 
+    dns_server: 10.1.250.1
+  task:
+    - lineinfile:
+        path: '/etc/resolv.conf'
+        line: 'nameserver {{dns_server}}'
+        
+        
+We can use variables by storing the variables of the host sin a variable file like:
+
+Information about web hostgroup, creating a file named web.yml
+
+---
+http_port: 8081
+snmp_port: 161-162
+inter_ip_range: 192.0.2.0
+---
+
+
+Now we can write the main playbook, using this web.yml as variables
+
+firewall.yml
+
+---
+  name: Setup Firewall Connwction 
+  host:web
+  tasks:
+    - firewalld:
+        service: https
+        pernament: true
+        state: enabled
+     
+    - firewalld:
+        port: '{{http_port}}'/tcp
+        permanent: true
+        state: disabled
+      
+    - firewalld:
+          port: '{{snmp_port}}'/udp
+          permanent: true
+          state: disabled
+          
+     - firewalld:
+            source: '{{inter_ip_range}}'/24
+            zone: internal
+            state: disabled
+            
+ ---
