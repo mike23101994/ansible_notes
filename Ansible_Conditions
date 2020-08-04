@@ -33,5 +33,26 @@ We use the conditional statement in Ansible by using "when" keyword
             body: the service is down
             
             when: result.stdout.find('down') != -1
+            
+            
+            
+            
+   ####Note
+   
+   we dont need to put variables in {{}} while using them in conditions
+   
+   for example:
+   
+   var:
+      age: 25
+      
+   -task:
+        - command:
+            cmd: echo"i am a child"
+            when: age < 18
+        - command:
+              cmd: echo"i am an adult"
+              when: age>= 18
+              
         
   
