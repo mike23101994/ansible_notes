@@ -1,0 +1,37 @@
+We use the conditional statement in Ansible by using "when" keyword
+
+---
+  - name: Install NGINX 
+    host: all
+    tasks:  
+      - name: INSTALL Nginx in Debian
+        apt:
+          name: nginx
+          state: present
+          when: ansible_os_family == 'Debian' or ansible_distribution_version == '16.06'
+          
+       - name: INSTALL Nginx in Redhat or SUSE
+         yum:
+            name: nginx
+            state: present
+            when: ansible_os_family == 'Redhat'
+ ---
+ 
+ To write a playbook to check the http status
+ 
+ 
+ ---
+    - name: Check the http status in the server
+      host: all
+      task:
+        name: Checking the https status
+        - command: service https status
+            resgister : result
+        - mail:
+            to: mainak@gmail.com
+            subject: HTTPS STatus
+            body: the service is down
+            
+            when: result.stdout.find('down') != -1
+        
+  
